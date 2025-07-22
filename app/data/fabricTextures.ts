@@ -25,6 +25,39 @@ export const fabricTextures: Record<string, FabricTexture> = {
     price: 55,
     description: "Natural linen with excellent breathability"
   },
+  polka: {
+    name: "Strips",
+    color: 0xffffff,
+    roughness: 0.7,
+    metalness: 0.0,
+    textureUrl: "/textures/new-fab.jpg", // Add this image to public/textures
+    price: 65,
+    description: "Fun polka dot pattern fabric"
+  },
+   tweed: {
+    name: "Tweed",
+    color: 0x556b2f,
+    roughness: 0.8,
+    metalness: 0.0,
+    price: 95,
+    description: "Traditional tweed with textured appearance"
+  },
+  velvet: {
+    name: "Velvet",
+    color: 0x800020,
+    roughness: 0.2,
+    metalness: 0.3,
+    price: 110,
+    description: "Luxurious velvet with rich texture"
+  },
+  satin: {
+    name: "Satin",
+    color: 0xffd700,
+    roughness: 0.1,
+    metalness: 0.4,
+    price: 75,
+    description: "Smooth satin with elegant sheen"
+  },
   silk: {
     name: "Silk",
     color: 0xfff8dc,
@@ -48,30 +81,6 @@ export const fabricTextures: Record<string, FabricTexture> = {
     metalness: 0.0,
     price: 65,
     description: "Classic denim fabric for casual wear"
-  },
-  tweed: {
-    name: "Tweed",
-    color: 0x556b2f,
-    roughness: 0.8,
-    metalness: 0.0,
-    price: 95,
-    description: "Traditional tweed with textured appearance"
-  },
-  velvet: {
-    name: "Velvet",
-    color: 0x800020,
-    roughness: 0.2,
-    metalness: 0.3,
-    price: 110,
-    description: "Luxurious velvet with rich texture"
-  },
-  satin: {
-    name: "Satin",
-    color: 0xffd700,
-    roughness: 0.1,
-    metalness: 0.4,
-    price: 75,
-    description: "Smooth satin with elegant sheen"
   },
   chambray: {
     name: "Chambray",
@@ -122,15 +131,6 @@ export const fabricTextures: Record<string, FabricTexture> = {
     textureUrl: "/textures/stripes.png", // Add this image to public/textures
     price: 65,
     description: "Stylish striped pattern fabric"
-  },
-  polka: {
-    name: "Polka Dots",
-    color: 0xffffff,
-    roughness: 0.7,
-    metalness: 0.0,
-    textureUrl: "/textures/polka.png", // Add this image to public/textures
-    price: 65,
-    description: "Fun polka dot pattern fabric"
   }
 };
 
