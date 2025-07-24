@@ -7,7 +7,8 @@ import * as THREE from 'three';
 import { fabricTextures } from '../data/fabricTextures';
 
 // Preload the GLB model for better performance
-useGLTF.preload('/models/3dShirt.glb');
+// useGLTF.preload('/models/3dShirt.glb');
+useGLTF.preload('/models/shirt-1.glb');
 
 interface RealisticCharacterProps {
   fabricTexture?: string;
@@ -17,7 +18,8 @@ interface RealisticCharacterProps {
 
 // Load the GLB model
 function useCharacterModel() {
-  const { scene } = useGLTF('/models/3dShirt.glb');
+  // const { scene } = useGLTF('/models/3dShirt.glb');
+  const { scene } = useGLTF('/models/shirt-1.glb');
   
   useEffect(() => {
     // Clone the scene to avoid issues with multiple instances
