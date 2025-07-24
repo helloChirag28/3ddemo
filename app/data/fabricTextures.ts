@@ -9,21 +9,41 @@ export interface FabricTexture {
 }
 
 export const fabricTextures: Record<string, FabricTexture> = {
-  cotton: {
-    name: "Cotton",
-    color: 0xf5f5dc,
-    roughness: 0.9,
+  fabric01: {
+    name: "Strips",
+    color: 0xffffff,
+    roughness: 0.7,
     metalness: 0.0,
-    price: 45,
-    description: "Breathable and comfortable cotton fabric"
+    textureUrl: "/texturesf1.jpeg", // Add this image to public/textures
+    price: 65,
+    description: "Fun fabric01 dot pattern fabric"
   },
-  linen: {
-    name: "Linen",
-    color: 0xfaf0e6,
-    roughness: 0.8,
+  fabric02: {
+    name: "Strips",
+    color: 0xffffff,
+    roughness: 0.7,
     metalness: 0.0,
-    price: 55,
-    description: "Natural linen with excellent breathability"
+    textureUrl: "/textures/f2.jpeg", // Add this image to public/textures
+    price: 65,
+    description: "Fun fabric02 dot pattern fabric"
+  },
+  fabric03: {
+    name: "Strips",
+    color: 0xffffff,
+    roughness: 0.7,
+    metalness: 0.0,
+    textureUrl: "/textures/f3.jpeg", // Add this image to public/textures
+    price: 65,
+    description: "Fun fabric03 dot pattern fabric"
+  },
+  fabric04: {
+    name: "Strips",
+    color: 0xffffff,
+    roughness: 0.7,
+    metalness: 0.0,
+    textureUrl: "/textures/f4.jpg", // Add this image to public/textures
+    price: 65,
+    description: "Fun fabric04 dot pattern fabric"
   },
   polka: {
     name: "Strips",
@@ -65,6 +85,22 @@ export const fabricTextures: Record<string, FabricTexture> = {
     metalness: 0.1,
     price: 120,
     description: "Luxurious silk fabric with natural sheen"
+  },
+  cotton: {
+    name: "Cotton",
+    color: 0xf5f5dc,
+    roughness: 0.9,
+    metalness: 0.0,
+    price: 45,
+    description: "Breathable and comfortable cotton fabric"
+  },
+  linen: {
+    name: "Linen",
+    color: 0xfaf0e6,
+    roughness: 0.8,
+    metalness: 0.0,
+    price: 55,
+    description: "Natural linen with excellent breathability"
   },
   wool: {
     name: "Wool",
