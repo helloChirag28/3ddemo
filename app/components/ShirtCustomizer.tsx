@@ -75,7 +75,7 @@ export function ShirtCustomizer({
         <div className="flex-1 relative">
           <Canvas
             ref={canvasRef}
-            camera={{ position: [0, 0, 3], fov: 60 }}
+            camera={{ position: [0, 0, 1.7], fov: 60 }}
             className="w-full h-full"
             shadows
           >
@@ -99,7 +99,7 @@ export function ShirtCustomizer({
                 enablePan={false}
                 enableZoom={true}
                 enableRotate={true}
-                minDistance={2}
+                minDistance={1.2}
                 maxDistance={8}
               />
             </Suspense>

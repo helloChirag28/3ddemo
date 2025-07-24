@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
@@ -47,6 +47,24 @@ export function RealisticCharacter({
   const [textureLoader] = useState(() => new THREE.TextureLoader());
   const [customTexture, setCustomTexture] = useState<THREE.Texture | null>(null);
 
+  // Preload the selected fabric texture (if any)
+  const fabricMapTexture = useMemo(() => {
+    if (
+      fabricTexture &&
+      fabricTexture !== 'default' &&
+      fabricTextures[fabricTexture] &&
+      fabricTextures[fabricTexture].textureUrl
+    ) {
+      const url = fabricTextures[fabricTexture].textureUrl!;
+      const texture = textureLoader.load(url);
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set(1, 1);
+      return texture;
+    }
+    return null;
+  }, [fabricTexture, textureLoader]);
+
   // Load custom texture
   useEffect(() => {
     if (fabricTexture === 'custom' && customLogo) {
@@ -64,55 +82,51 @@ export function RealisticCharacter({
   useEffect(() => {
     if (characterModel) {
       const detectedClothingParts: string[] = [];
-      
       characterModel.traverse((child) => {
         if (child instanceof THREE.Mesh) {
           const material = child.material as THREE.MeshStandardMaterial;
-          
-          // For a shirt model, we want to apply fabric to all mesh parts
-          // since the entire model is the shirt
-          const isShirtPart = true; // All parts of the shirt model should get fabric
-          
+          const isShirtPart = true;
           if (isShirtPart) {
             detectedClothingParts.push(child.name);
-            console.log('Applying fabric to shirt part:', child.name);
-            
+            // Only update if something changed
             if (fabricTexture === 'custom' && customTexture) {
-              material.map = customTexture;
-              material.color.setHex(0xffffff);
-            } else if (fabricTexture && fabricTexture !== 'default' && fabricTextures[fabricTexture]) {
-              // Get fabric properties from the fabric data
+              if (material.map !== customTexture) {
+                material.map = customTexture;
+                material.color.setHex(0xffffff);
+                material.needsUpdate = true;
+              }
+            } else if (
+              fabricTexture &&
+              fabricTexture !== 'default' &&
+              fabricTextures[fabricTexture]
+            ) {
               const fabric = fabricTextures[fabricTexture];
-              
               material.color.setHex(fabric.color);
               material.roughness = fabric.roughness;
               material.metalness = fabric.metalness;
-              material.map = null; // Clear any existing texture
-              
-              // If the fabric has a texture URL, load it
-              if (fabric.textureUrl) {
-                const texture = textureLoader.load(fabric.textureUrl);
-                texture.wrapS = THREE.RepeatWrapping;
-                texture.wrapT = THREE.RepeatWrapping;
-                texture.repeat.set(1, 1);
-                material.map = texture;
+              if (fabricMapTexture && material.map !== fabricMapTexture) {
+                material.map = fabricMapTexture;
+                material.needsUpdate = true;
+              } else if (!fabricMapTexture && material.map) {
+                material.map = null;
+                material.needsUpdate = true;
               }
             } else {
-              // Apply a default fabric color if none selected
-              material.color.setHex(0x4A90E2); // Default blue color
+              // Default fallback
+              material.color.setHex(0x4A90E2);
               material.roughness = 0.8;
               material.metalness = 0.1;
+              if (material.map) {
+                material.map = null;
+                material.needsUpdate = true;
+              }
             }
-            
-            material.needsUpdate = true;
           }
         }
       });
-      
-      // Notify parent component about detected clothing parts
       onClothingPartsDetected?.(detectedClothingParts);
     }
-  }, [fabricTexture, characterModel, customTexture, textureLoader, onClothingPartsDetected]);
+  }, [fabricTexture, characterModel, customTexture, fabricMapTexture, onClothingPartsDetected]);
 
   // Static shirt - no animation
   useFrame(() => {
